@@ -1,0 +1,161 @@
+<link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+<div class="wrapper">
+<div class="container mt-5">
+<br>
+    <h1>List of courses </h1>
+    <br>
+    <input class="buttons" type="submit" name="" value="Add Course" href="#" 
+    data-toggle="modal" data-target="#create">
+    <!--routerLink = "/newCourse"-->
+    
+    
+    <table class ="table">
+        <thead>
+            <th>Name</th>
+            <th>Chapters</th>
+            <th> Objectives</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+        <tr 
+           *ngFor="let course of courses ">
+             <td class="contentInTable" style="color: aquamarine;font-size: larger;text-decoration: solid;">{{course.name}}</td>
+             <td class="contentInTable">{{course.chapters}}</td>
+             <td class="contentInTable">{{course.objectives}}</td>
+             <td><button   data-toggle="modal" data-target="#courseContent" class="buttons"  [routerLink] = "['/courses',course._id]">content</button> </td>
+              <td><button   data-toggle="modal" data-target="#delete" class="buttons" (click)="idToDelete(course._id)">x</button> </td>
+              <td><button   data-toggle="modal" data-target="#update" class="buttons" [routerLink]="['/courses',course._id]">Edit</button> </td>
+                <!--[routerLink] = "['/deleteCourse',course._id]"-->
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+ <!-- Modal create -->
+
+ <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                   <div class="card">
+                        <form class="box">
+                            <h1>CREATE NEW COURSE</h1>
+                            <p class="text-muted"> Please enter your course infos!</p>
+                             <input #CourseTitleInput type="text" name="" placeholder="Course name"> 
+                             <input #CouresChapters type="text" name="" placeholder="Chapters">
+                             <input #CourseObjectives type="text" name="" placeholder="Objectives"> 
+                             <input #CourseContent type="text" name="" placeholder="content">  
+                              <input type="submit" name="" value="Create"  (click)="createNewCourse(CourseTitleInput.value,CouresChapters.value,CourseObjectives.value,CourseContent.value)" data-dismiss="modal">
+                              <input type="submit" name="" value="Cancel" data-dismiss="modal" >
+                            <div class="col-md-12">
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>  
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+
+ <!-- Modal delete -->
+ <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="box">
+                            <h1>DELETE COURSE</h1>
+                            <p class="text-muted"> Are you sure of deleting this course</p>          
+                              <input type="submit" name="" value="Delete" data-dismiss="modal"  (click)="deleteCourse()" >
+                              <input type="submit" name="" value="Cancel" data-dismiss="modal" >
+                            <div class="col-md-12">
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>  
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal update -->
+
+ <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="box">
+                            <h1>UPDATE COURSE</h1>
+                            <input #updateName type="text" name="" placeholder="Course name"> 
+                            <input #updateChapters type="text" name="" placeholder="Chapters">
+                            <input #updateObjectives type="text" name="" placeholder="Objectives"> 
+                            <input #updateContent type="text" name="" placeholder="Content">        
+                            <input type="submit" name="" value="Update" data-dismiss="modal" (click)="updateCourse(course._id,updateName.value,updateChapters.value,updateObjectives.value,updateContent.value)" >
+                            <input type="submit" name="" value="Cancel" data-dismiss="modal" >
+                            <div class="col-md-12">
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>  
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!--Modal Content-->
+
+  <div class="modal fade" id="courseContent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document" style="padding: 0%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Course Content</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <p>
+                   {{course.content}}
+                </p>
+        </div>
+        <div class="modal-footer">
+            <input class="buttons" type="submit" name="" value="Close" data-dismiss="modal" >
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="boxes">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+   
+   
+
